@@ -1,5 +1,4 @@
-# 베라포트: 제대로 작동하지 않는 한국의 애플리케이션 관리 소프트웨어어
-
+# 베라포트: 제대로 작동하지 않는 한국의 애플리케이션 관리 소프트웨어
 
 * :kr: *번역상태*: 1차 검토/수정 중 (2023-03-06)
 
@@ -18,8 +17,6 @@
 
 ---
 
-
-
 이전에 이야기한 바와 같이 한국의 은행 웹사이트는 [소위보안 애플리케이션이라 불리는 것들을 설치를 요구](https://palant.info/2023/01/02/south-koreas-online-security-dead-end/)한다. 
 동시에 [TouchEn nxKey](https://palant.info/2023/01/09/touchen-nxkey-the-keylogging-anti-keylogger-solution/)나 [IPinside](https://palant.info/2023/01/25/ipinside-koreas-mandatory-spyware/)와 같은 애플리케이션이 자동 업데이트 기능이 부족하다는 것도 보았다.
 만약 보안 문제가 발생하더라도 사용자에게 시의 적적하게 업데이트를 전달하는 것이 거의 불가능하다.
@@ -33,7 +30,6 @@
 만약 필요할 경우 업데이트도 설치한다.
 
 ![Laptop with Veraport logo on the left, three web servers on the right. First server is labeled “Initiating server,” the arrow going from it to the laptop says “Get policy from banking.example.” Next web server is labeled “Policy server,” the arrow pointing from the laptop to it says “Installation policy?” and the arrow back “Install app.exe from download.example.” The final web server is labeled “Download server” and an arrow points to it from the laptop saying “Give me app.exe.”](https://palant.info/temp/sZ5dD1oX9vE5aP9a/veraport.png)
-
 
 만약 이것의 권한이 막강하다는 생각이 든다면 실제 그렇기 때문이다.
 베라포트는 이미 [북한 해커들의 공격에 사용되었다](https://threatpost.com/hacked-software-south-korea-supply-chain-attack/161257/)고 뉴스에 나온 적이 있다.
@@ -81,7 +77,7 @@
 - 여전히 개별 웹사이트(예: 온라인 뱅킹)에서 소프트웨어 배포에 대해서 책임지며 종종 이미 알려진 보안 문제가 있는 오래된 애플리케이션을 제공한다.
 - 공개적으로 유출된 서명인증서나 악의적인 정책파일을 철회할 수 있는 장치가 없다.
 
-그 외에도 `https://127.0.0.1:16106`에서 동작하는 베라포트의 로컬 웹서버에는 영구적 [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) 을 비롯한 여러 보안취약접이 존재한다.
+그 외에도 `https://127.0.0.1:16106`에서 동작하는 베라포트의 로컬 웹서버에는 영구적 [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) 을 비롯한 여러 보안취약접이 존재한다.
 이것을 통해 요청하는 어떤 웹사이트에든 사용자 기기에서 실행 중인 프로세스의 전체 노출한다.
 보안 애플리케이션의 경우 애플리케이션 버전도 노출한다.
 
@@ -96,7 +92,7 @@ OpenSSL 취약점은 특히 잘 문서화되어 있다. 이 버전의 경우 [�
 
 ## 은행 웹사이트가 애플리케이션을 배포하는 방법
 
-한국의 은행에서 사용하는 로그인 웹사이트는 여러 개의 소위 보안 애플리케이션에서 제공하는 자바스크립트 코드를 실행한다. 
+한국의 은행에서 사용하는 로그인 웹사이트는 여러 개의 소위 보안 애플리케이션에서 제공하는 자바스크립트 코드를 실행한다.
 각 SDK는 애플리케이션이 사용자의 컴퓨터에 존재하는지 먼저 확인한다.
 만약 존재하지 않을 경우 보통은 사용자를 다운로드 페이지로 리다이렉트(redirect)한다
 
@@ -119,7 +115,6 @@ OpenSSL 취약점은 특히 잘 문서화되어 있다. 이 버전의 경우 [�
 분명히 사용자들이 이러한 복잡한 문제를 다루기를 기대할 수 없다.
 그래서 은행들이 보통 "통합 설치"를 제공한다.
 이것은 사용자들이 위즈베라 베라포트 애플리케이션을 다운로드하여 그것이 모든 픽요한 작업을 하도록 하는 것을 뜻한다.
-
 
 ## 위즈베라 베라포트 동작방식
 
@@ -188,9 +183,10 @@ send_command("getAxInfo", {
 
 여기서 TouchEn nxKey을 필수 애플리케이션으로 표시한다.
 베라포트는 `objectMIMEType` 항목을 통해서 애플리케이션이 이미 설치되었는지 인식한다.
-설치가 안되었을 경우 `downloadURL` 와 `backupURL` 항목을 사용해 설치파일을 다운로드한다.
+설치가 안되었을 경우 `downloadURL` 와 `backupURL` 항목을 사용해 설치파일을 다운로드한다.
 
 이 데이터기 처리되면 웹사이트에서 베라포트의 사용자 인터페이스를 열 수 있다:
+
 ```js
 send_command("show");
 ```
@@ -199,7 +195,6 @@ send_command("show");
 "관리(manage)"모드에서는 사용자가 어떤 애플리케이션을 설치할지 선택할 수 있게 해준다.
 이미 설치된 애플리케이션을 삭제하는 것도 이론적으로는 가능하지만 내가 시도했을 때 동작하지 않았다.
 "일반(normal)" 같은 모드에서는 필수로 간주되는 애플리케이션을 다운로드를 시작하고 설치한다.
-
 
 ## 악성 정책으로부터 보호
 
@@ -216,7 +211,7 @@ send_command("show");
 정책파일내에 `allowedDomains` 항목을 사용한다.
 내가 알 수 있는 한, 웹주소 구문분석(parsing)은 제대로 동작하고 우회를 허용하지 않는다.
 
-정책파일의 `downloadURL` 와 `backupURL` 에 상대경로가 존재한다면 (매우 일반적임), 정책파일 위치를 기준으로 상대적으로 처리한다.
+정책파일의 `downloadURL` 와 `backupURL` 에 상대경로가 존재한다면 (매우 일반적임), 정책파일 위치를 기준으로 상대적으로 처리한다.
 원칙적으로는 이러한 보안 정책이 결합되어 합법적인 정책을 악용하더라도 신뢰할 수 없는 위치에서 다운로드를 시작할 수 없다고 한다.
 
 ## 보안 내 구멍
@@ -358,7 +353,7 @@ Wizvera 웹사이트에는 많은 고객이 나열되어 있다.
 하지만 실제 악성 소프트웨어는 여기서 시스템 깊숙이 파고들 것이다.
 어쩌면 파일 암호화를 시작하거나, 사용자을 염탐하거나, 사용자의 돈을 전부 털기 위해 "단순히" 다음 은행 거래를 기다릴 지도 모른다.
 
-이 애플리케이션은 이제 관리자 권한으로 실행되며 시스템의 모든 항목을 변경할 수 있다는 것을 기억하라. 
+이 애플리케이션은 이제 관리자 권한으로 실행되며 시스템의 모든 항목을 변경할 수 있다는 것을 기억하라.
 사용자는 권한 상승 프롬프트(애플리케이션의 유효하지 않은 서명에 대해 경고하는 메시지)를 수락할 필요조차 없었다 – 베라포트 자체가 각 개별 설치 프로그램에 대한 권한 상승 프롬프트를 표시하지 않기 위해 권한상승된 상태로 실행된다.
 
 ### 시각적 단서 제거
@@ -421,19 +416,20 @@ let processes = send_command("checkProcess", "*");
 아니, 이게 무슨 용도인지 모르겠다.
 
 이 엔드포인트를 테스트하면 리디렉션 주소의 유효성 검사가 수행되지 않는 것으로 보인다.
-베라포트는 주소에서 줄 바꿈 문자도 기꺼이 허용하므로 [HTTP 응답 분할](https://owasp.org/www-community/attacks/HTTP_Response_Splitting)이 가능하다. 이것은 HTTP 응답을 생성하는 모든 라이브러리들이 헤더 이름이나 값에서 줄바꿈 문자를 금지한 이후로 거의 사라진 취약성 종류이다. 
+베라포트는 주소에서 줄 바꿈 문자도 기꺼이 허용하므로 [HTTP 응답 분할](https://owasp.org/www-community/attacks/HTTP_Response_Splitting)이 가능하다. 이것은 HTTP 응답을 생성하는 모든 라이브러리들이 헤더 이름이나 값에서 줄바꿈 문자를 금지한 이후로 거의 사라진 취약성 종류이다.
 하지만 Veraport는 그러한 라이브러리를 사용하지 않는다.
 
 따라서 `https://127.0.0.1:16106/redirect?url=https://example.com/%0ACookie:%20a=b`요청으로 다음과 같은 응답을 얻는다:
 
-```
+```http request
 HTTP/1.1 302 Found
 Location: https://example.com/
 Cookie: a=b
 ```
 
 HTTP 헤더의 성공적인 인젝션으로 127.0.0.1에 쿠키를 설정하였다 . 그리고 `Location` 헤더를 유효하지 않게 만들어 리디렉션을 방지하고 대신 임의의 콘텐츠를 제공할 수도 있다. `https://127.0.0.1:16106/redirect?url=%0AContent-Type:%20text/html%0A%0A%3Cscript%3Ealert(document.domain)%3C/script%3E` 요청으로 다음 응답을 얻는다:
-```
+
+```http response
 HTTP/1.1 302 Found
 Location: 
 Content-Type: text/html
@@ -461,14 +457,15 @@ Content-Type: text/html
 따라서 처음 두 조건이 충족된다.
 다른 두 가지에 관해서는 HTTP 응답 분할을 사용히야 유효한 MIME 유형을 가진 JavaScript 코드를 얻을 수 있을 것이다. 그러나 더 간단한 방법이 있다.
 
-기억나는가? 베라포트 서버는 [JSONP](https://en.wikipedia.org/wiki/JSONP)를 통해 통신힌다. 
+기억나는가? 베라포트 서버는 [JSONP](https://en.wikipedia.org/wiki/JSONP)를 통해 통신힌다.
 따라서 `https://127.0.0.1:16106/?data={}&callback=hi` 요청은 다음과 같은 자바스크립트 파일을 생성한다:
+
 ```js
 hi({"res": 1});
 ```
 
 JSONP의 사용은 권장되지 않으며 매우 오랫동안 그래왔다.
-그러나 _만약_ 애플리케이션이 JSONP를 사용해야 한다면 콜백 이름을 검증하는 것이 좋다, 예를 들면 영문 및 숫자만 허용한다.
+그러나 *만약* 애플리케이션이 JSONP를 사용해야 한다면 콜백 이름을 검증하는 것이 좋다, 예를 들면 영문 및 숫자만 허용한다.
 
 알아맞춰 보아라: 베라포트는그러한 유효성 검사를 수행하지 않는다.
 악의적인 콜백 이름이 JavaScript 데이터에 임의의 코드를 삽입할 수 있음을 의미힌다.
@@ -492,7 +489,7 @@ alert(document.domain)//hi({"res": 1});
 내가 찾은 이슈들을 총 6개의 신고서로 정리했다.
 다른 한국 보안 애플리케이션과 마찬가지로 [KrCERT 취약성 보고서 양식](https://www.krcert.or.kr/krcert/contact/vulnerability.do)을 통해 이 신고서를 제출했습니다.
 
-이 양식은 일반적으로 신뢰할 수 없고 종종 오류 메시지를 생성하지만 이번에는 가장 중요한 두 신고서를 곧바로 거부했다. 
+이 양식은 일반적으로 신뢰할 수 없고 종종 오류 메시지를 생성하지만 이번에는 가장 중요한 두 신고서를 곧바로 거부했다.
 신고서 텍스트의 무언가가 웹 애플리케이션 방화벽을 작동했다.
 
 텍스트를 수정하려고 했지만 소용이 없다.
@@ -534,7 +531,7 @@ Veraport 3.8.6.4를 테스트 했을 때 일부 문제를 해결했지만 다른
 특히 이제 HTTPS 연결에 대해 서버 신원의 유효성을 검사하고 있다.
 또한 Veraport 3.8.6.5는 HTTP 다운로드를 HTTPS로 자동 업그레이드를 통해 신뢰할 수 없는 네트워크가 더 이상 설치를 조작할 수 없다.
 
-창 크기는 더 이상 배경 이미지에 의해 결정되지 않으므로 애플리케이션 창을 더 이상 이런 식으로 숨길 수 없다. 
+창 크기는 더 이상 배경 이미지에 의해 결정되지 않으므로 애플리케이션 창을 더 이상 이런 식으로 숨길 수 없다.
 Veraport 3.8.6.5를 사용하면 웹사이트도 더 이상 애플리케이션에 대한 설명을 변경할 수 없습니다.
 
 리디렉션 엔드포인트는 베라포트의 로컬 서버에서 제거되었으며 JSONP 엔드포인트는 이제 콜백 이름을 허용된 문자 집합으로 제한합니다.
